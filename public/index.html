@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Query Cart</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-logo">Query Cart</div>
+        <div class="nav-links">
+            <a href="products.html">Shop</a>
+            <a href="#" id="cartLink">Cart <span class="cart-count" id="cartCount">0</span></a>
+        </div>
+        <div class="nav-auth" id="navAuth">
+            <a href="login.html" class="btn-ghost">Login</a>
+            <a href="register.html" class="btn-solid">Register</a>
+        </div>
+        <div class="nav-user hidden" id="navUser">
+            <span id="userName"></span>
+            <a href="#" id="logoutBtn" class="btn-ghost">Logout</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-wave">
+            <svg viewBox="0 0 1440 600" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M0,200 C200,320 400,80 600,200 C800,320 1000,100 1200,220 C1350,300 1420,180 1440,200 L1440,600 L0,600 Z" fill="rgba(210,160,130,0.13)"/>
+                <path d="M0,300 C180,200 380,380 580,280 C780,180 980,340 1200,260 C1350,210 1420,300 1440,280 L1440,600 L0,600 Z" fill="rgba(210,160,130,0.09)"/>
+            </svg>
+        </div>
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="hero-orb hero-orb-3"></div>
+
+        <div class="hero-inner">
+            <div class="hero-content">
+                <div class="hero-badge">Type. Query. Shop.</div>
+                <h1 class="hero-title">
+                    <span class="line-1">Search Smarter</span>
+                    <span class="line-2">Shop Faster</span>
+                </h1>
+                <p class="hero-sub">Shop from thousands of products across electronics, fashion, books, and more. Sell your products with ease.</p>
+                <div class="hero-actions">
+                    <a href="products.html" class="cta-primary">Browse Products</a>
+                    <a href="products.html" class="cta-secondary">Browse Shop</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-pill">
+                        <span class="stat-num">40+</span>
+                        <span class="stat-label">Products</span>
+                    </div>
+                    <div class="stat-pill">
+                        <span class="stat-num">8</span>
+                        <span class="stat-label">Sellers</span>
+                    </div>
+                    <div class="stat-pill">
+                        <span class="stat-num">8</span>
+                        <span class="stat-label">Categories</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ORBITAL VISUAL -->
+            <div class="hero-visual">
+                <div class="orbit-wrap">
+                    <div class="orbit-center">🛒</div>
+
+                    <div class="orbit-card oc-1">
+                        <div class="oc-icon">⌨️</div>
+                        <div class="oc-info">
+                            <div class="oc-name">Keyboard</div>
+                            <div class="oc-price">৳3,800</div>
+                        </div>
+                    </div>
+
+                    <div class="orbit-card oc-2">
+                        <div class="oc-icon">📱</div>
+                        <div class="oc-info">
+                            <div class="oc-name">Smart Watch</div>
+                            <div class="oc-price">৳5,500</div>
+                        </div>
+                    </div>
+
+                    <div class="orbit-card oc-3">
+                        <div class="oc-icon">🏏</div>
+                        <div class="oc-info">
+                            <div class="oc-name">Cricket Bat</div>
+                            <div class="oc-price">৳3,500</div>
+                        </div>
+                    </div>
+
+                    <div class="orbit-card oc-4">
+                        <div class="oc-icon">📚</div>
+                        <div class="oc-info">
+                            <div class="oc-name">Atomic Habits</div>
+                            <div class="oc-price">৳550</div>
+                        </div>
+                    </div>
+
+                    <div class="orbit-card oc-5">
+                        <div class="oc-icon">🎧</div>
+                        <div class="oc-info">
+                            <div class="oc-name">Earbuds</div>
+                            <div class="oc-price">৳2,500</div>
+                        </div>
+                    </div>
+
+                    <div class="orbit-card oc-6">
+                        <div class="oc-icon">⚽</div>
+                        <div class="oc-info">
+                            <div class="oc-name">Football</div>
+                            <div class="oc-price">৳1,500</div>
+                        </div>
+                    </div>
+
+                    <div class="orbit-card oc-7">
+                        <div class="oc-icon">🍳</div>
+                        <div class="oc-info">
+                            <div class="oc-name">Frying Pan</div>
+                            <div class="oc-price">৳1,200</div>
+                        </div>
+                    </div>
+
+                    <div class="orbit-card oc-8">
+                        <div class="oc-icon">👕</div>
+                        <div class="oc-info">
+                            <div class="oc-name">T-Shirt</div>
+                            <div class="oc-price">৳900</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATEGORIES -->
+    <section class="categories-section">
+        <div class="section-header">
+            <div>
+                <div class="section-eyebrow">Browse</div>
+                <h2>Shop by Category</h2>
+            </div>
+            <a href="products.html" class="see-all">See all</a>
+        </div>
+        <div class="categories-grid" id="categoriesGrid">
+            <div class="spinner"></div>
+        </div>
+    </section>
+
+    <!-- FEATURED PRODUCTS -->
+    <section class="featured-section">
+        <div class="section-header">
+            <div>
+                <div class="section-eyebrow">Handpicked</div>
+                <h2>Featured Products</h2>
+            </div>
+            <a href="products.html" class="see-all">See all</a>
+        </div>
+        <div class="products-grid" id="featuredGrid">
+            <div class="spinner"></div>
+        </div>
+    </section>
+
+    <!-- WHY -->
+    <section class="why-section">
+        <div class="why-inner">
+            <div class="why-header">
+                <div class="section-eyebrow">Why us</div>
+                <h2>Effortless Shopping Starts Here</h2>
+                <p>A marketplace that understands your needs</p>
+            </div>
+            <div class="why-grid">
+                <div class="why-card">
+                    <div class="why-icon-wrap">🚀</div>
+                    <h3>Fast Delivery</h3>
+                    <p>Quick and reliable delivery across Bangladesh</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon-wrap">🔒</div>
+                    <h3>Secure Payments</h3>
+                    <p>Card, mobile banking, and cash on delivery</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon-wrap">🏪</div>
+                    <h3>Multi Vendor</h3>
+                    <p>Shop from multiple trusted sellers in one place</p>
+                </div>
+                <div class="why-card">
+                    <div class="why-icon-wrap">↩️</div>
+                    <h3>Easy Returns</h3>
+                    <p>Hassle free return and refund policy</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BECOME A SELLER -->
+    <section class="seller-section">
+        <div class="seller-orb"></div>
+        <div class="seller-inner">
+            <div class="seller-text">
+                <div class="section-eyebrow light">For Sellers</div>
+                <h2>Start Selling Today</h2>
+                <p>Join our growing community of sellers. List your products, reach thousands of customers, and grow your business.</p>
+                <a href="register.html" class="cta-primary">Become a Seller</a>
+            </div>
+            <div class="seller-stats-wrap">
+                <div class="seller-stat-card">
+                    <span class="big-num">8</span>
+                    <span class="big-label">Active Shops</span>
+                </div>
+                <div class="seller-stat-card">
+                    <span class="big-num">40+</span>
+                    <span class="big-label">Products Listed</span>
+                </div>
+                <div class="seller-stat-card">
+                    <span class="big-num">12+</span>
+                    <span class="big-label">Happy Customers</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="footer-brand">
+                <div class="footer-logo">Query Cart</div>
+                <p>Discover quality products with speed, simplicity, and confidence.</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>Shop</h4>
+                    <a href="products.html">All Products</a>
+                    <a href="products.html">Categories</a>
+                    <a href="cart.html">My Cart</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Account</h4>
+                    <a href="login.html">Login</a>
+                    <a href="register.html">Register</a>
+                    <a href="seller-dashboard.html">Sell on Query Cart</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 Query Cart. CSE-2201 Lab Project, University of Dhaka.</p>
+            <div class="footer-legal">
+                <a href="terms.html">Terms and Conditions</a>
+                <span>·</span>
+                <a href="privacy.html">Privacy Policy</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/home.js"></script>
+</body>
+</html>

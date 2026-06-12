@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Dashboard — Query Cart</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/seller.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="nav-logo">Query Cart</a>
+        <div class="nav-links">
+            <a href="products.html">Browse Shop</a>
+            <a href="seller-profile.html">My Profile</a>
+        </div>
+        <div class="nav-user" id="navUser">
+            <span id="userName"></span>
+            <a href="#" id="logoutBtn" class="btn-ghost">Logout</a>
+        </div>
+    </nav>
+
+    <div class="dashboard-wrap">
+
+        <!-- SIDEBAR -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-shop-info" id="sidebarShopInfo">
+                <div class="sidebar-shop-avatar" id="sidebarAvatar">🏪</div>
+                <div class="sidebar-shop-name" id="sidebarShopName">Loading...</div>
+                <div class="sidebar-shop-rating" id="sidebarShopRating">⭐ —</div>
+                <div class="sidebar-shop-status" id="sidebarShopStatus"></div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <button class="sidebar-btn active" data-tab="overview">
+                    <span class="sidebar-btn-icon">📊</span> Overview
+                </button>
+                <button class="sidebar-btn" data-tab="products">
+                    <span class="sidebar-btn-icon">📦</span> My Products
+                </button>
+                <button class="sidebar-btn" data-tab="add-product">
+                    <span class="sidebar-btn-icon">➕</span> Add Product
+                </button>
+                <button class="sidebar-btn" data-tab="orders">
+                    <span class="sidebar-btn-icon">🛍️</span> Incoming Order
+                </button>
+                <button class="sidebar-btn" data-tab="settings">
+                    <span class="sidebar-btn-icon">⚙️</span> Shop Settings
+                </button>
+            </nav>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="dashboard-main">
+
+            <!-- ===================== OVERVIEW TAB ===================== -->
+            <div class="tab-panel active" id="tab-overview">
+                <div class="tab-header">
+                    <div class="tab-eyebrow">Hello, <span id="overviewSellerName"></span></div>
+                    <h1 class="tab-title">Overview</h1>
+                </div>
+
+                <div class="stats-grid" id="statsGrid">
+                    <div class="stat-card">
+                        <!--<div class="stat-card-icon">📦</div>-->
+                        <div class="stat-card-info">
+                            <div class="stat-card-num" id="statProducts">—</div>
+                            <div class="stat-card-label">Total Products</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <!--<div class="stat-card-icon">✅</div>-->
+                        <div class="stat-card-info">
+                            <div class="stat-card-num" id="statActive">—</div>
+                            <div class="stat-card-label">Active Listing</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <!--<div class="stat-card-icon">🛒</div>-->
+                        <div class="stat-card-info">
+                            <div class="stat-card-num" id="statOrders">—</div>
+                            <div class="stat-card-label">Total Orders</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- REVENUE BANNER -->
+                <div class="revenue-banner">
+                    <span class="revenue-amount" id="statRevenue">৳0</span>
+                    <span class="revenue-label">💰 Total Revenue</span>
+                </div>
+
+                <!-- RECENT ORDERS -->
+                <div class="section-block">
+                    <div class="section-block-header">
+                        <h2 class="section-block-title">Recent Orders</h2>
+                        <button class="text-btn" onclick="switchTab('orders')">View All</button>
+                    </div>
+                    <div id="recentOrdersList"><div class="spinner"></div></div>
+                </div>
+
+                <!-- LOW STOCK -->
+                <div class="section-block">
+                    <div class="section-block-header">
+                        <h2 class="section-block-title">Low Stock Alert</h2>
+                        <button class="text-btn" onclick="switchTab('products')">Manage</button>
+                    </div>
+                    <div id="lowStockList"><div class="spinner"></div></div>
+                </div>
+            </div>
+
+            <!-- ===================== PRODUCTS TAB ===================== -->
+            <div class="tab-panel hidden" id="tab-products">
+                <div class="tab-header">
+                    <div class="tab-eyebrow">Manage</div>
+                    <h1 class="tab-title">My Products</h1>
+                </div>
+
+                <div class="products-toolbar">
+                    <button class="toolbar-add-btn" onclick="switchTab('add-product')">+ Add Products</button>
+                    <input type="text" class="toolbar-search" id="productSearch" placeholder="Search Your Products 🔍" />
+                    <select class="toolbar-select" id="productFilter">
+                        <option value="all">All Products</option>
+                        <option value="active">Active Only</option>
+                        <option value="inactive">Inactive Only</option>
+                        <option value="low_stock">Low Stock</option>
+                    </select>
+                </div>
+
+                <div class="seller-products-list" id="sellerProductsList">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+
+            <!-- ===================== ADD PRODUCT TAB ===================== -->
+            <div class="tab-panel hidden" id="tab-add-product">
+                <div class="tab-header">
+                    <div class="tab-eyebrow" id="addProductEyebrow">New Listing</div>
+                    <h1 class="tab-title" id="addProductTitle">Add Product</h1>
+                </div>
+
+                <div class="add-product-form-wrap">
+                    <form id="addProductForm" enctype="multipart/form-data">
+                        <input type="hidden" id="editProductId" value="" />
+
+                        <div class="form-grid">
+                            <div class="seller-form-group full-width">
+                                <label>Product Name <span class="required">*</span></label>
+                                <input type="text" id="productName" placeholder="Enter product name" />
+                            </div>
+
+                            <div class="seller-form-group">
+                                <label>Category <span class="required">*</span></label>
+                                <select id="productCategory">
+                                    <option value="">Select category</option>
+                                </select>
+                            </div>
+
+                            <div class="seller-form-group">
+                                <label>Price (৳) <span class="required">*</span></label>
+                                <input type="number" id="productPrice" placeholder="0.00" min="0" step="0.01" />
+                            </div>
+
+                            <div class="seller-form-group">
+                                <label>Stock Quantity <span class="required">*</span></label>
+                                <input type="number" id="productStock" placeholder="0" min="0" />
+                            </div>
+
+                            <div class="seller-form-group">
+                                <label>Availability</label>
+                                <select id="productAvailable">
+                                    <option value="true">Available</option>
+                                    <option value="false">Not Available</option>
+                                </select>
+                            </div>
+
+                            <div class="seller-form-group full-width">
+                                <label>Description</label>
+                                <textarea id="productDescription" placeholder="Describe your product..." rows="4"></textarea>
+                            </div>
+
+                            <div class="seller-form-group full-width">
+                                <label>Product Image</label>
+                                <div class="image-upload-wrap" id="imageUploadWrap">
+                                    <input type="file" id="productImage" accept="image/*" hidden />
+                                    <div class="image-upload-area" id="imageUploadArea">
+                                        <div class="upload-icon">📸</div>
+                                        <div class="upload-text">Click to upload product image</div>
+                                        <div class="upload-hint">JPG, PNG, WEBP up to 5MB</div>
+                                    </div>
+                                    <div class="image-preview hidden" id="imagePreview">
+                                        <img id="previewImg" src="" alt="Preview" />
+                                        <button type="button" class="remove-image-btn" id="removeImage">✕ Remove</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="submit-product-btn" id="submitProductBtn">
+                                Add Product
+                            </button>
+                            <button type="button" class="cancel-btn" id="cancelEditBtn" style="display:none" onclick="cancelEdit()">
+                                Cancel Edit
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- ===================== ORDERS TAB ===================== -->
+            <div class="tab-panel hidden" id="tab-orders">
+                <div class="tab-header">
+                    <div class="tab-eyebrow">Manage</div>
+                    <h1 class="tab-title">Incoming Orders</h1>
+                </div>
+
+                <div class="orders-filter-row">
+                    <button class="order-filter-btn active" data-status="all">All</button>
+                    <button class="order-filter-btn" data-status="pending">Pending</button>
+                    <button class="order-filter-btn" data-status="processing">Processing</button>
+                    <button class="order-filter-btn" data-status="shipped">Shipped</button>
+                    <button class="order-filter-btn" data-status="delivered">Delivered</button>
+                    <button class="order-filter-btn" data-status="cancelled">Cancelled</button>
+                </div>
+
+                <div class="seller-orders-list" id="sellerOrdersList">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+
+            <!-- ===================== SETTINGS TAB ===================== -->
+            <div class="tab-panel hidden" id="tab-settings">
+                <div class="tab-header">
+                    <div class="tab-eyebrow">Configure</div>
+                    <h1 class="tab-title">Shop Settings</h1>
+                </div>
+
+                <!-- NO SHOP YET — CREATE SHOP FORM -->
+                <div class="settings-wrap hidden" id="createShopWrap">
+                    <div class="settings-card" style="max-width:520px">
+                        <h2 class="settings-card-title">Create Your Shop</h2>
+                        <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:1.2rem">
+                            You need a shop before you can list products. This is a one-time setup.
+                        </p>
+                        <form id="createShopForm">
+                            <div class="seller-form-group">
+                                <label>Shop Name <span class="required">*</span></label>
+                                <input type="text" id="newShopName" placeholder="e.g. Toy Mart" />
+                            </div>
+                            <div class="seller-form-group" style="margin-top:1rem">
+                                <label>Shop Description</label>
+                                <textarea id="newShopDesc" placeholder="Tell customers about your shop..." rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="submit-product-btn" style="margin-top:1.2rem">Create Shop</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- SHOP EXISTS — NORMAL SETTINGS -->
+                <div class="settings-wrap hidden" id="shopSettingsWrap">
+                    <div class="settings-card">
+                        <h2 class="settings-card-title">Shop Information</h2>
+                        <form id="shopSettingsForm">
+                            <div class="seller-form-group">
+                                <label>Shop Name <span class="required">*</span></label>
+                                <input type="text" id="settingsShopName" placeholder="Your shop name" />
+                            </div>
+                            <div class="seller-form-group">
+                                <label>Shop Description</label>
+                                <textarea id="settingsShopDesc" placeholder="Tell customers about your shop..." rows="4"></textarea>
+                            </div>
+                            <div class="seller-form-group">
+                                <label>Shop Status</label>
+                                <select id="settingsShopActive">
+                                    <option value="true">Active — visible to customers</option>
+                                    <option value="false">Inactive — hidden from customers</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="submit-product-btn">Save Changes</button>
+                        </form>
+                    </div>
+
+                    <div class="settings-card">
+                        <h2 class="settings-card-title">Account Information</h2>
+                        <div class="account-info-list" id="accountInfoList">
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/seller.js"></script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart — Query Cart</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/cart.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="nav-logo">Query Cart</a>
+        <div class="nav-links">
+            <a href="products.html">Shop</a>
+            <a href="cart.html">Cart <span class="cart-count" id="cartCount">0</span></a>
+        </div>
+        <div class="nav-auth" id="navAuth">
+            <a href="login.html" class="btn-ghost">Login</a>
+            <a href="register.html" class="btn-solid">Register</a>
+        </div>
+        <div class="nav-user hidden" id="navUser">
+            <span id="userName"></span>
+            <a href="#" id="logoutBtn" class="btn-ghost">Logout</a>
+        </div>
+    </nav>
+
+    <div class="cart-page">
+
+        <!-- LEFT: CART ITEMS + WISHLIST -->
+        <div class="cart-left">
+
+            <!-- CART SECTION -->
+            <div class="cart-section-header">
+                <div>
+                    <div class="cart-eyebrow">Your Selection</div>
+                    <h1 class="cart-title">Shopping Cart</h1>
+                </div>
+                <button class="clear-cart-btn hidden" id="clearCartBtn">Clear All</button>
+            </div>
+
+            <div id="cartContent">
+                <div class="spinner"></div>
+            </div>
+
+            <!-- WISHLIST SECTION -->
+            <div class="wishlist-section">
+                <div class="cart-section-header" style="margin-top:2.5rem">
+                    <div>
+                        <div class="cart-eyebrow">Saved for later</div>
+                        <h2 class="cart-subtitle">Wishlist</h2>
+                    </div>
+                </div>
+                <div id="wishlistContent">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- RIGHT: ORDER SUMMARY -->
+        <div class="cart-right">
+            <div class="order-summary-card">
+                <div class="cart-eyebrow">Breakdown</div>
+                <h2 class="summary-title">Order Summary</h2>
+
+                <div class="summary-rows" id="summaryRows">
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span id="summarySubtotal">৳0</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Delivery</span>
+                        <span class="summary-free">Free</span>
+                    </div>
+                </div>
+
+                <!-- COUPON -->
+                <div class="coupon-wrap">
+                    <div class="coupon-input-row">
+                        <input type="text" id="couponInput" class="coupon-input" placeholder="Coupon code" />
+                        <button class="coupon-apply-btn" id="applyCoupon">Apply</button>
+                    </div>
+                    <div class="coupon-result hidden" id="couponResult"></div>
+                </div>
+
+                <div class="summary-divider"></div>
+
+                <div class="summary-total-row">
+                    <span>Total</span>
+                    <span class="summary-total" id="summaryTotal">৳0</span>
+                </div>
+
+                <button class="checkout-btn" id="checkoutBtn">Proceed to Checkout</button>
+
+                <a href="products.html" class="continue-shopping">Continue Shopping</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/cart.js"></script>
+</body>
+</html>

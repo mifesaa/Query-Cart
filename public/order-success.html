@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Placed — Query Cart</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/order-success.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="nav-logo">Query Cart</a>
+        <div class="nav-links">
+            <a href="products.html">Shop</a>
+            <a href="cart.html">Cart <span class="cart-count" id="cartCount">0</span></a>
+        </div>
+        <div class="nav-auth" id="navAuth">
+            <a href="login.html" class="btn-ghost">Login</a>
+            <a href="register.html" class="btn-solid">Register</a>
+        </div>
+        <div class="nav-user hidden" id="navUser">
+            <span id="userName"></span>
+            <a href="#" id="logoutBtn" class="btn-ghost">Logout</a>
+        </div>
+    </nav>
+
+    <div class="success-page">
+        <div class="success-card" id="successCard">
+            <div class="spinner"></div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/order-success.js"></script>
+</body>
+</html>

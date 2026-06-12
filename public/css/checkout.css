@@ -1,0 +1,442 @@
+/* =============================================
+   Query Cart — checkout.css
+   ============================================= */
+
+/* BREADCRUMB */
+.breadcrumb {
+    padding: 5.5rem 4rem 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.breadcrumb a { color: var(--text-muted); transition: var(--transition); }
+.breadcrumb a:hover { color: var(--accent); }
+.breadcrumb span { color: var(--sand); }
+.breadcrumb span:last-child { color: var(--text); font-weight: 600; }
+
+/* PAGE LAYOUT */
+.checkout-page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 1rem 4rem 4rem;
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 2rem;
+    align-items: start;
+}
+
+/* CARDS */
+.checkout-card {
+    background: var(--surface);
+    border: 1.5px solid rgba(255,245,240,0.95);
+    border-radius: 24px;
+    padding: 1.8rem 2rem;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 1.5rem;
+}
+
+.checkout-step-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin-bottom: 0.3rem;
+}
+
+.checkout-card-title {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--text);
+    margin-bottom: 1.4rem;
+}
+
+/* =============================================
+   ADDRESS
+   ============================================= */
+.address-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-bottom: 1rem;
+}
+
+.address-option {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    background: var(--bg);
+    border: 1.5px solid rgba(255,245,240,0.85);
+    border-radius: 14px;
+    padding: 1rem 1.2rem;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: var(--shadow-in);
+}
+
+.address-option:hover { border-color: var(--accent3); }
+.address-option.selected { border-color: var(--accent); background: rgba(184,105,74,0.06); }
+
+.address-option input[type="radio"] {
+    margin-top: 0.2rem;
+    accent-color: var(--accent);
+    flex-shrink: 0;
+}
+
+.address-body { flex: 1; }
+
+.address-street {
+    font-weight: 600;
+    font-size: 0.92rem;
+    color: var(--text);
+    margin-bottom: 0.2rem;
+}
+
+.address-city {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+}
+
+.address-default-badge {
+    font-size: 0.68rem;
+    font-weight: 700;
+    background: rgba(184,105,74,0.12);
+    color: var(--accent);
+    padding: 0.15rem 0.6rem;
+    border-radius: 100px;
+    margin-left: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* ADD ADDRESS */
+.add-address-toggle {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--accent);
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.add-address-toggle:hover { color: var(--rose); }
+
+.add-address-form {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    padding: 1.2rem;
+    background: var(--bg);
+    border-radius: 14px;
+    border: 1.5px solid rgba(255,245,240,0.85);
+    box-shadow: var(--shadow-in);
+}
+
+.checkout-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.checkout-form-group label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.checkout-form-group input {
+    background: var(--surface);
+    border: 1.5px solid rgba(255,245,240,0.9);
+    border-radius: var(--radius-xs);
+    padding: 0.65rem 0.9rem;
+    font-family: var(--font-body);
+    font-size: 0.92rem;
+    color: var(--text);
+    outline: none;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+}
+
+.checkout-form-group input:focus {
+    border-color: var(--accent3);
+    box-shadow: var(--shadow-sm), 0 0 0 3px rgba(184,105,74,0.1);
+}
+
+.checkout-form-group input::placeholder { color: var(--text-light); }
+
+.checkout-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.8rem;
+}
+
+.save-address-btn {
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 100px;
+    padding: 0.65rem 1.5rem;
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+    align-self: flex-start;
+    box-shadow: 4px 4px 12px rgba(140,100,70,0.3);
+}
+
+.save-address-btn:hover { background: var(--rose); transform: translateY(-1px); }
+
+/* =============================================
+   PAYMENT OPTIONS
+   ============================================= */
+.payment-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.payment-option {
+    cursor: pointer;
+}
+
+.payment-option input[type="radio"] {
+    display: none;
+}
+
+.payment-option-body {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--bg);
+    border: 1.5px solid rgba(255,245,240,0.85);
+    border-radius: 14px;
+    padding: 1rem 1.2rem;
+    transition: var(--transition);
+    box-shadow: var(--shadow-in);
+}
+
+.payment-option input[type="radio"]:checked + .payment-option-body {
+    border-color: var(--accent);
+    background: rgba(184,105,74,0.06);
+    box-shadow: var(--shadow-sm);
+}
+
+.payment-option-body:hover { border-color: var(--accent3); }
+
+.payment-icon { font-size: 1.6rem; flex-shrink: 0; }
+
+.payment-name {
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: var(--text);
+    margin-bottom: 0.15rem;
+}
+
+.payment-desc { font-size: 0.78rem; color: var(--text-muted); }
+
+/* =============================================
+   CHECKOUT ITEMS LIST
+   ============================================= */
+.checkout-items-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.checkout-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem 0;
+    border-bottom: 1.5px solid rgba(255,245,240,0.8);
+}
+
+.checkout-item:last-child { border-bottom: none; }
+
+.checkout-item-thumb {
+    width: 56px;
+    height: 56px;
+    background: linear-gradient(135deg, var(--bg2), var(--bg));
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    flex-shrink: 0;
+    border: 1.5px solid rgba(255,245,240,0.9);
+    overflow: hidden;
+}
+
+.checkout-item-thumb img { width: 100%; height: 100%; object-fit: cover; }
+
+.checkout-item-info { flex: 1; min-width: 0; }
+
+.checkout-item-name {
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.checkout-item-shop { font-size: 0.74rem; color: var(--text-muted); margin-top: 0.15rem; }
+
+.checkout-item-qty {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+
+.checkout-item-price {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: var(--accent);
+    flex-shrink: 0;
+}
+
+/* =============================================
+   SUMMARY CARD
+   ============================================= */
+.checkout-summary-card {
+    background: var(--surface);
+    border: 1.5px solid rgba(255,245,240,0.95);
+    border-radius: 24px;
+    padding: 1.8rem;
+    box-shadow: var(--shadow-md);
+    position: sticky;
+    top: 5.5rem;
+}
+
+.cart-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--accent);
+    margin-bottom: 0.3rem;
+}
+
+.checkout-summary-title {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    color: var(--text);
+    margin-bottom: 1.4rem;
+}
+
+.checkout-summary-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    margin-bottom: 1rem;
+}
+
+.checkout-summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.co-free { color: var(--success); font-weight: 700; font-size: 0.85rem; }
+.co-discount { color: var(--success); font-weight: 700; }
+
+.checkout-summary-divider {
+    height: 1.5px;
+    background: rgba(255,245,240,0.8);
+    margin: 1rem 0;
+}
+
+.checkout-total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+}
+
+.checkout-total {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--accent);
+}
+
+.place-order-btn {
+    width: 100%;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 100px;
+    padding: 1rem;
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 800;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 8px 8px 20px rgba(140,100,70,0.35);
+    margin-bottom: 1rem;
+}
+
+.place-order-btn:hover {
+    background: var(--rose);
+    transform: translateY(-2px);
+    box-shadow: 10px 12px 26px rgba(140,100,70,0.45);
+}
+
+.place-order-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.co-back {
+    display: block;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.co-back:hover { color: var(--accent); }
+
+/* HIDDEN / SPINNER */
+.hidden { display: none !important; }
+
+.spinner {
+    width: 36px; height: 36px;
+    border: 3px solid var(--sand);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 2rem auto;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .checkout-page {
+        grid-template-columns: 1fr;
+        padding: 1rem 1.5rem 3rem;
+    }
+    .checkout-summary-card { position: static; }
+    .breadcrumb { padding: 5.5rem 1.5rem 0.8rem; }
+    .checkout-form-row { grid-template-columns: 1fr; }
+}

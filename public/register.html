@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register — Query Cart</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="nav-logo">Query Cart</a>
+        <div class="nav-links"></div>
+        <div class="nav-auth">
+            <a href="login.html" class="btn-ghost">Login instead</a>
+        </div>
+    </nav>
+
+    <div class="form-page">
+        <div class="form-bg-orb orb-a"></div>
+        <div class="form-bg-orb orb-b"></div>
+
+        <div class="form-card">
+            <div class="section-eyebrow">Get started</div>
+            <div class="form-title">Create Account</div>
+            <div class="form-sub">Join Query Cart as a customer or seller</div>
+
+            <!-- ROLE TOGGLE -->
+            <div class="role-toggle">
+                <div class="role-btn active" data-role="customer">🛍️ Customer</div>
+                <div class="role-btn" data-role="seller">🏪 Seller</div>
+            </div>
+
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="regName">Full Name</label>
+                    <input type="text" id="regName" placeholder="Your full name" autocomplete="name" />
+                </div>
+                <div class="form-group">
+                    <label for="regEmail">Email</label>
+                    <input type="email" id="regEmail" placeholder="you@email.com" autocomplete="email" />
+                </div>
+                <div class="form-group">
+                    <label for="regPhone">Phone Number</label>
+                    <input type="tel" id="regPhone" placeholder="017XXXXXXXX" autocomplete="tel" />
+                </div>
+                <div class="form-group">
+                    <label for="regPassword">Password</label>
+                    <input type="password" id="regPassword" placeholder="At least 6 characters" autocomplete="new-password" />
+                </div>
+                <div class="form-group">
+                    <label for="regConfirm">Confirm Password</label>
+                    <input type="password" id="regConfirm" placeholder="Repeat password" autocomplete="new-password" />
+                </div>
+
+                <button type="submit" class="form-btn">Create Account</button>
+            </form>
+
+            <div class="form-footer">
+                Already have an account? <a href="login.html">Login here</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

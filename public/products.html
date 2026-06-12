@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products — Query Cart</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/products.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="nav-logo">Query Cart</a>
+        <div class="nav-links">
+            <a href="products.html">Shop</a>
+            <a href="#" id="cartLink">Cart <span class="cart-count" id="cartCount">0</span></a>
+        </div>
+        <div class="nav-auth" id="navAuth">
+            <a href="login.html" class="btn-ghost">Login</a>
+            <a href="register.html" class="btn-solid">Register</a>
+        </div>
+        <div class="nav-user hidden" id="navUser">
+            <span id="userName"></span>
+            <a href="#" id="logoutBtn" class="btn-ghost">Logout</a>
+        </div>
+    </nav>
+
+    <!-- HERO SEARCH -->
+    <div class="products-hero">
+        <h1 class="products-hero-title">Query Your Product</h1>
+        <div class="search-bar-wrap">
+            <input type="text" id="searchInput" class="search-bar-input" placeholder="What are you looking for?" />
+            <button class="search-bar-btn" id="searchBtn">🔍</button>
+        </div>
+    </div>
+
+    <!-- FILTER BAR -->
+    <div class="filter-bar">
+        <div class="filter-bar-inner">
+            <div class="filter-bar-group">
+                <span class="filter-bar-label">Price Range :</span>
+                <input type="number" id="minPrice" class="filter-bar-input" placeholder="Min" min="0" />
+                <input type="number" id="maxPrice" class="filter-bar-input" placeholder="Max" min="0" />
+            </div>
+            <div class="filter-bar-group">
+                <span class="filter-bar-label">Sort By :</span>
+                <select id="sortSelect" class="filter-bar-select">
+                    <option value="newest">Newest First</option>
+                    <option value="price_asc">Price: Low to High</option>
+                    <option value="price_desc">Price: High to Low</option>
+                    <option value="rating">Top Rated</option>
+                </select>
+            </div>
+            <button class="filter-apply-btn" id="applyFilters">Apply Filter</button>
+        </div>
+    </div>
+
+    <!-- CATEGORIES SECTION -->
+    <div class="categories-section-wrap" id="categoriesSection">
+        <h2 class="section-big-title">Available Categories</h2>
+        <div class="categories-big-grid" id="categoriesGrid">
+            <div class="spinner"></div>
+        </div>
+    </div>
+
+    <!-- PRODUCTS SECTION (hidden until category selected or search done) -->
+    <div class="products-section-wrap hidden" id="productsSection">
+        <div class="products-section-header">
+            <div>
+                <div class="section-eyebrow-p" id="productsEyebrow">Showing results</div>
+                <h2 class="section-big-title left" id="productsHeading">All Products</h2>
+            </div>
+            <div class="products-section-right">
+                <span class="products-count-badge" id="productsCount"></span>
+                <button class="back-to-categories-btn" id="backToCategories">All Categories</button>
+            </div>
+        </div>
+        <div class="products-big-grid" id="productsGrid">
+            <div class="spinner"></div>
+        </div>
+        <div class="empty-state hidden" id="emptyState">
+            <div class="empty-icon">🔍</div>
+            <h3>No products found</h3>
+            <p>Try adjusting your filters or search term</p>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/products.js"></script>
+</body>
+</html>

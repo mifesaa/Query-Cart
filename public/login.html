@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login — Query Cart</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="nav-logo">Query Cart</a>
+        <div class="nav-links"></div>
+        <div class="nav-auth">
+            <a href="register.html" class="btn-ghost">Register instead</a>
+        </div>
+    </nav>
+
+    <div class="form-page">
+        <div class="form-bg-orb orb-a"></div>
+        <div class="form-bg-orb orb-b"></div>
+
+        <div class="form-card">
+            <div class="section-eyebrow">Welcome back</div>
+            <div class="form-title">Login</div>
+            <div class="form-sub">Enter your credentials to continue</div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email</label>
+                    <input type="email" id="loginEmail" placeholder="you@email.com" autocomplete="email" />
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password" />
+                </div>
+                <button type="submit" class="form-btn">Login</button>
+            </form>
+
+            <div class="form-footer">
+                Don't have an account? <a href="register.html">Register here</a>
+            </div>
+            <div class="form-footer" style="margin-top:0.5rem">
+                <a href="products.html" style="color:var(--text-muted)">Continue as Guest</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+</html>

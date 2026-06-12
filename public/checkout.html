@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout — Query Cart</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/checkout.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="nav-logo">Query Cart</a>
+        <div class="nav-links">
+            <a href="products.html">Shop</a>
+            <a href="cart.html">Cart <span class="cart-count" id="cartCount">0</span></a>
+        </div>
+        <div class="nav-auth" id="navAuth">
+            <a href="login.html" class="btn-ghost">Login</a>
+            <a href="register.html" class="btn-solid">Register</a>
+        </div>
+        <div class="nav-user hidden" id="navUser">
+            <span id="userName"></span>
+            <a href="#" id="logoutBtn" class="btn-ghost">Logout</a>
+        </div>
+    </nav>
+
+    <!-- BREADCRUMB -->
+    <div class="breadcrumb">
+        <a href="cart.html">Cart</a>
+        <span>›</span>
+        <span>Checkout</span>
+    </div>
+
+    <div class="checkout-page">
+
+        <!-- LEFT -->
+        <div class="checkout-left">
+
+            <!-- STEP 1: DELIVERY ADDRESS -->
+            <div class="checkout-card">
+                <div class="checkout-step-label">Step 1</div>
+                <h2 class="checkout-card-title">Delivery Address</h2>
+
+                <div class="address-list" id="addressList">
+                    <div class="spinner"></div>
+                </div>
+
+                <!-- ADD NEW ADDRESS -->
+                <div class="add-address-toggle" id="addAddressToggle">
+                    + Add a new address
+                </div>
+
+                <div class="add-address-form hidden" id="addAddressForm">
+                    <div class="checkout-form-group">
+                        <label>Street / Area</label>
+                        <input type="text" id="newStreet" placeholder="House no, Road, Area" />
+                    </div>
+                    <div class="checkout-form-row">
+                        <div class="checkout-form-group">
+                            <label>City</label>
+                            <input type="text" id="newCity" placeholder="City" />
+                        </div>
+                        <div class="checkout-form-group">
+                            <label>Postal Code</label>
+                            <input type="text" id="newPostal" placeholder="Postal code" />
+                        </div>
+                    </div>
+                    <button class="save-address-btn" id="saveAddressBtn">Save Address</button>
+                </div>
+            </div>
+
+            <!-- STEP 2: PAYMENT METHOD -->
+            <div class="checkout-card">
+                <div class="checkout-step-label">Step 2</div>
+                <h2 class="checkout-card-title">Payment Method</h2>
+
+                <div class="payment-options">
+                    <label class="payment-option">
+                        <input type="radio" name="payment" value="mobile_banking" checked />
+                        <div class="payment-option-body">
+                            <span class="payment-icon">📱</span>
+                            <div>
+                                <div class="payment-name">Mobile Banking</div>
+                                <div class="payment-desc">bKash, Nagad, Rocket</div>
+                            </div>
+                        </div>
+                    </label>
+                    <label class="payment-option">
+                        <input type="radio" name="payment" value="card" />
+                        <div class="payment-option-body">
+                            <span class="payment-icon">💳</span>
+                            <div>
+                                <div class="payment-name">Card</div>
+                                <div class="payment-desc">Debit or Credit card</div>
+                            </div>
+                        </div>
+                    </label>
+                    <label class="payment-option">
+                        <input type="radio" name="payment" value="cash" />
+                        <div class="payment-option-body">
+                            <span class="payment-icon">💵</span>
+                            <div>
+                                <div class="payment-name">Cash on Delivery</div>
+                                <div class="payment-desc">Pay when you receive</div>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- STEP 3: ORDER ITEMS REVIEW -->
+            <div class="checkout-card">
+                <div class="checkout-step-label">Step 3</div>
+                <h2 class="checkout-card-title">Review Items</h2>
+                <div class="checkout-items-list" id="checkoutItemsList">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- RIGHT: SUMMARY -->
+        <div class="checkout-right">
+            <div class="checkout-summary-card">
+                <div class="cart-eyebrow">Final</div>
+                <h2 class="checkout-summary-title">Order Total</h2>
+
+                <div class="checkout-summary-rows" id="checkoutSummaryRows">
+                    <div class="checkout-summary-row">
+                        <span>Subtotal</span>
+                        <span id="coSubtotal">—</span>
+                    </div>
+                    <div class="checkout-summary-row" id="coDiscountRow" style="display:none">
+                        <span id="coDiscountLabel">Discount</span>
+                        <span class="co-discount" id="coDiscount">—</span>
+                    </div>
+                    <div class="checkout-summary-row">
+                        <span>Delivery</span>
+                        <span class="co-free">Free</span>
+                    </div>
+                </div>
+
+                <div class="checkout-summary-divider"></div>
+
+                <div class="checkout-total-row">
+                    <span>Total</span>
+                    <span class="checkout-total" id="coTotal">—</span>
+                </div>
+
+                <button class="place-order-btn" id="placeOrderBtn">
+                    Place Order
+                </button>
+
+                <a href="cart.html" class="co-back">Back to Cart</a>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/checkout.js"></script>
+</body>
+</html>
