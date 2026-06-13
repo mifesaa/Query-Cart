@@ -14,7 +14,7 @@
     <nav class="navbar">
         <a href="index.html" class="nav-logo">Query Cart</a>
         <div class="nav-links">
-            <a href="products.html">Browse Shop</a>
+            <a href="shops.html">Browse Shop</a>
             <a href="seller-profile.html">My Profile</a>
         </div>
         <div class="nav-user" id="navUser">
@@ -151,12 +151,24 @@
                                 <label>Product Name <span class="required">*</span></label>
                                 <input type="text" id="productName" placeholder="Enter product name" />
                             </div>
-
+<!--
                             <div class="seller-form-group">
                                 <label>Category <span class="required">*</span></label>
                                 <select id="productCategory">
                                     <option value="">Select category</option>
                                 </select>
+                            </div>
+-->
+                            
+                            <div class="seller-form-group">
+                                <label>Category <span class="required">*</span></label>
+                                <select id="productCategory">
+                                    <option value="">Select category</option>
+                                    <option value="__new__">+ Add new category</option>
+                                </select>
+                                <div class="new-category-input hidden" id="newCategoryWrap" style="margin-top:0.6rem">
+                                    <input type="text" id="newCategoryName" placeholder="Type new category name" />
+                                </div>
                             </div>
 
                             <div class="seller-form-group">

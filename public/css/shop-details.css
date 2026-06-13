@@ -1,0 +1,113 @@
+/* =============================================
+   Query Cart — shop-details.css
+   ============================================= */
+
+/* BREADCRUMB */
+.breadcrumb {
+    padding: 5.5rem 4rem 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.breadcrumb a { color: var(--text-muted); transition: var(--transition); }
+.breadcrumb a:hover { color: var(--accent); }
+.breadcrumb span { color: var(--sand); }
+.breadcrumb span:last-child { color: var(--text); font-weight: 600; }
+
+/* SHOP HEADER */
+.shop-header-wrap {
+    max-width: 1100px;
+    margin: 0 auto 1rem;
+    padding: 0.5rem 4rem 1rem;
+}
+
+.shop-header-card {
+    background: var(--surface);
+    border-radius: 28px;
+    padding: 2.5rem;
+    box-shadow: var(--shadow-md);
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.shop-header-icon {
+    width: 96px; height: 96px;
+    background: var(--peach);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.6rem;
+    box-shadow: var(--shadow-sm);
+    flex-shrink: 0;
+}
+
+.shop-header-info { flex: 1; min-width: 200px; }
+
+.shop-header-name {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -1px;
+    margin-bottom: 0.4rem;
+}
+
+.shop-header-seller {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin-bottom: 0.6rem;
+}
+
+.shop-header-desc {
+    color: var(--text);
+    opacity: 0.85;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    max-width: 540px;
+}
+
+.shop-header-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    flex-shrink: 0;
+}
+
+.shop-stat-pill {
+    background: var(--surface);
+    border-radius: 100px;
+    padding: 0.5rem 1.3rem;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+    min-width: 130px;
+}
+
+.shop-stat-num {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--accent);
+    display: block;
+}
+
+.shop-stat-label {
+    font-size: 0.74rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .breadcrumb { padding: 5.5rem 1.5rem 0.8rem; }
+    .shop-header-wrap { padding: 0.5rem 1.5rem 1rem; }
+    .shop-header-card { padding: 1.8rem; text-align: center; flex-direction: column; }
+    .shop-header-stats { flex-direction: row; flex-wrap: wrap; justify-content: center; }
+}

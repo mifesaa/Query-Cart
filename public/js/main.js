@@ -66,6 +66,7 @@ async function updateCartCount() {
 }
 
 // --- NAV AUTH STATE ---
+/*
 function updateNav() {
     const user = getUser();
     const navAuth = document.getElementById('navAuth');
@@ -83,6 +84,53 @@ function updateNav() {
         if (navAuth) navAuth.classList.remove('hidden');
         if (navUser) navUser.classList.add('hidden');
         if (cartLink) cartLink.href = 'login.html';
+    }
+}
+
+*/
+
+function updateNav() {
+    const user = getUser();
+    const navAuth = document.getElementById('navAuth');
+    const navUser = document.getElementById('navUser');
+    const userNameEl = document.getElementById('userName');
+    const navLinks = document.querySelector('.nav-links');
+ 
+    if (user) {
+        if (navAuth) navAuth.classList.add('hidden');
+        if (navUser) navUser.classList.remove('hidden');
+        if (userNameEl) userNameEl.textContent = `Hi, ${user.name.split(' ')[0]}`;
+ 
+        // Role-based nav links
+        if (navLinks) {
+            if (user.role === 'seller') {
+                navLinks.innerHTML = `
+                    <a href="shops.html">Browse Shop</a>
+                    <a href="seller-dashboard.html">My Shop</a>
+                    <a href="seller-profile.html">My Profile</a>
+                `;
+            } else {
+                navLinks.innerHTML = `
+                    <a href="shops.html">Browse Shop</a>
+                    <a href="products.html">Shop Now</a>
+                    <a href="customer-profile.html">My Profile</a>
+                    <a href="cart.html">Cart <span class="cart-count" id="cartCount">0</span></a>
+                `;
+                updateCartCount();
+            }
+        }
+    } else {
+        if (navAuth) navAuth.classList.remove('hidden');
+        if (navUser) navUser.classList.add('hidden');
+ 
+        // Guest nav links
+        if (navLinks) {
+            navLinks.innerHTML = `
+                <a href="shops.html">Browse Shop</a>
+                <a href="products.html">Shop</a>
+                <a href="login.html">Cart <span class="cart-count" id="cartCount">0</span></a>
+            `;
+        }
     }
 }
 

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop — Query Cart</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/products.css">
+    <link rel="stylesheet" href="css/shop-details.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="nav-logo">Query Cart</a>
+        <div class="nav-links">
+            <a href="products.html">Shop</a>
+            <a href="#" id="cartLink">Cart <span class="cart-count" id="cartCount">0</span></a>
+        </div>
+        <div class="nav-auth" id="navAuth">
+            <a href="login.html" class="btn-ghost">Login</a>
+            <a href="register.html" class="btn-solid">Register</a>
+        </div>
+        <div class="nav-user hidden" id="navUser">
+            <span id="userName"></span>
+            <a href="#" id="logoutBtn" class="btn-ghost">Logout</a>
+        </div>
+    </nav>
+
+    <!-- BREADCRUMB -->
+    <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span>›</span>
+        <a href="shops.html">Shops</a>
+        <span>›</span>
+        <span id="breadcrumbName">Loading...</span>
+    </div>
+
+    <!-- SHOP HEADER -->
+    <div class="shop-header-wrap" id="shopHeaderWrap">
+        <div class="spinner"></div>
+    </div>
+
+    <!-- PRODUCTS SECTION -->
+    <div class="products-section-wrap">
+        <div class="products-section-header">
+            <div>
+                <div class="section-eyebrow-p">Available</div>
+                <h2 class="section-big-title left">Products from this Shop</h2>
+            </div>
+            <span class="products-count-badge" id="productsCount"></span>
+        </div>
+        <div class="products-big-grid" id="productsGrid">
+            <div class="spinner"></div>
+        </div>
+        <div class="empty-state hidden" id="emptyState">
+            <div class="empty-icon">📦</div>
+            <h3>No products available</h3>
+            <p>This shop hasn't listed any products yet.</p>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/shop-details.js"></script>
+</body>
+</html>

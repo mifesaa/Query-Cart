@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile — Query Cart</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/customer-profile.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="nav-logo">Query Cart</a>
+        <div class="nav-links"></div>
+        <div class="nav-user" id="navUser">
+            <span id="userName"></span>
+            <a href="#" id="logoutBtn" class="btn-ghost">Logout</a>
+        </div>
+    </nav>
+
+    <div class="dashboard-wrap">
+
+        <!-- SIDEBAR -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-user-info">
+                <div class="sidebar-avatar" id="sidebarAvatar">🐼</div>
+                <div class="sidebar-user-name" id="sidebarUserName">Loading...</div>
+                <div class="sidebar-user-status" id="sidebarUserStatus"></div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <button class="sidebar-btn active" data-tab="profile">
+                    <span class="sidebar-btn-icon">👤</span> Profile
+                </button>
+                <button class="sidebar-btn" data-tab="orders">
+                    <span class="sidebar-btn-icon">📦</span> My Orders
+                </button>
+                <button class="sidebar-btn" data-tab="review">
+                    <span class="sidebar-btn-icon">⭐</span> Review
+                </button>
+                <button class="sidebar-btn" data-tab="edit">
+                    <span class="sidebar-btn-icon">✏️</span> Edit Profile
+                </button>
+            </nav>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="dashboard-main">
+
+            <!-- ===================== PROFILE TAB ===================== -->
+            <div class="tab-panel active" id="tab-profile">
+                <div class="tab-header center">
+                    <h1 class="tab-title">My Profile</h1>
+                </div>
+
+                <div class="profile-wrap" id="profileWrap">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+
+            <!-- ===================== MY ORDERS TAB ===================== -->
+            <div class="tab-panel hidden" id="tab-orders">
+                <div class="tab-header center">
+                    <h1 class="tab-title">My Orders</h1>
+                </div>
+
+                <div class="orders-filter-row" id="ordersFilterRow">
+                    <button class="order-filter-btn active" data-status="all">All</button>
+                    <button class="order-filter-btn" data-status="pending">Pending</button>
+                    <button class="order-filter-btn" data-status="processing">Processing</button>
+                    <button class="order-filter-btn" data-status="shipped">Shipped</button>
+                    <button class="order-filter-btn" data-status="delivered">Delivered</button>
+                    <button class="order-filter-btn" data-status="cancelled">Cancelled</button>
+                </div>
+
+                <div class="customer-orders-list" id="customerOrdersList">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+
+            <!-- ===================== ORDER DETAIL TAB ===================== -->
+            <div class="tab-panel hidden" id="tab-order-detail">
+                <div class="tab-header center">
+                    <h1 class="tab-title">Order Details</h1>
+                </div>
+                <div class="order-detail-wrap" id="orderDetailWrap">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+
+            <!-- ===================== REVIEW TAB ===================== -->
+            <div class="tab-panel hidden" id="tab-review">
+                <div class="tab-header center">
+                    <h1 class="tab-title">Write a Review</h1>
+                </div>
+                <div class="review-products-list" id="reviewProductsList">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+
+            <!-- ===================== EDIT PROFILE TAB ===================== -->
+            <div class="tab-panel hidden" id="tab-edit">
+                <div class="tab-header center">
+                    <h1 class="tab-title">Edit Profile</h1>
+                </div>
+
+                <div class="settings-wrap single">
+                    <div class="settings-card">
+                        <h2 class="settings-card-title">Personal Information</h2>
+                        <form id="editProfileForm">
+                            <div class="seller-form-group">
+                                <label>Full Name <span class="required">*</span></label>
+                                <input type="text" id="editName" placeholder="Your name" />
+                            </div>
+                            <div class="seller-form-group">
+                                <label>Email</label>
+                                <input type="email" id="editEmail" placeholder="Email" disabled />
+                            </div>
+                            <div class="seller-form-group">
+                                <label>Phone <span class="required">*</span></label>
+                                <input type="tel" id="editPhone" placeholder="Phone number" />
+                            </div>
+                            <button type="submit" class="submit-product-btn">Save Changes</button>
+                        </form>
+                    </div>
+
+                    <div class="settings-card">
+                        <h2 class="settings-card-title">Change Password</h2>
+                        <form id="changePasswordForm">
+                            <div class="seller-form-group">
+                                <label>Current Password <span class="required">*</span></label>
+                                <input type="password" id="currentPassword" placeholder="••••••••" />
+                            </div>
+                            <div class="seller-form-group">
+                                <label>New Password <span class="required">*</span></label>
+                                <input type="password" id="newPassword" placeholder="At least 6 characters" />
+                            </div>
+                            <div class="seller-form-group">
+                                <label>Confirm New Password <span class="required">*</span></label>
+                                <input type="password" id="confirmNewPassword" placeholder="Repeat new password" />
+                            </div>
+                            <button type="submit" class="submit-product-btn">Update Password</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/customer-profile.js"></script>
+</body>
+</html>

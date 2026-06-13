@@ -1,0 +1,99 @@
+/* =============================================
+   Query Cart — shops.css
+   ============================================= */
+
+.shops-count-badge {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.shops-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.8rem;
+}
+
+.shop-card {
+    background: var(--surface);
+    border: 2px solid rgba(255,245,240,0.95);
+    border-radius: 28px;
+    padding: 2rem 1.5rem;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.shop-card::before {
+    content: '';
+    position: absolute;
+    bottom: -20px; right: -20px;
+    width: 100px; height: 100px;
+    background: var(--bg2);
+    border-radius: 50%;
+    opacity: 0.5;
+    transition: var(--transition);
+}
+
+.shop-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--accent3);
+}
+
+.shop-card:hover::before {
+    width: 140px; height: 140px;
+    opacity: 0.8;
+}
+
+.shop-card-icon {
+    width: 64px; height: 64px;
+    background: var(--accent3);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    margin: 0 auto 1rem;
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    z-index: 1;
+}
+
+.shop-card-name {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.3px;
+    margin-bottom: 0.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.shop-card-rating {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    background: var(--bg2);
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    font-weight: 700;
+    padding: 0.25rem 0.9rem;
+    border-radius: 100px;
+    position: relative;
+    z-index: 1;
+}
+
+.shop-card-products {
+    margin-top: 0.6rem;
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    position: relative;
+    z-index: 1;
+}

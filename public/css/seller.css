@@ -150,7 +150,7 @@
 }
 
 .stat-card {
-    background: var(--accent3);
+    background: var(--surface);
     border-radius: 24px;
     padding: 1.6rem 1.4rem;
     text-align: center;

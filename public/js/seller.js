@@ -31,6 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupSettings();
     setupCreateShopForm();
     setupImageUpload();
+    setupCategoryDropdown();
 });
 
 // =============================================
@@ -347,11 +348,33 @@ async function loadCategories() {
         const data = await apiFetch('/products/categories');
         allCategories = data.categories;
         const select = document.getElementById('productCategory');
+        const currentVal = select.value;
         select.innerHTML = '<option value="">Select category</option>';
         allCategories.forEach(c => {
             select.innerHTML += `<option value="${c.category_id}">${c.category_name}</option>`;
         });
+        select.innerHTML += `<option value="__new__">+ Add new category</option>`;
+        if (currentVal && currentVal !== '__new__') select.value = currentVal;
     } catch (err) {}
+}
+
+// --- NEW CATEGORY DROPDOWN ---
+function setupCategoryDropdown() {
+    const select = document.getElementById('productCategory');
+    const wrap = document.getElementById('newCategoryWrap');
+    const input = document.getElementById('newCategoryName');
+
+    if (!select) return;
+
+    select.addEventListener('change', () => {
+        if (select.value === '__new__') {
+            wrap.classList.remove('hidden');
+            input.focus();
+        } else {
+            wrap.classList.add('hidden');
+            input.value = '';
+        }
+    });
 }
 
 function setupImageUpload() {
@@ -410,13 +433,36 @@ async function submitProductForm() {
         return;
     }
 
+    // Handle new category creation
+    let categoryId = category;
+
+    if (category === '__new__') {
+        const newCatName = document.getElementById('newCategoryName').value.trim();
+        if (!newCatName) {
+            showToast('Please enter a category name', 'error');
+            return;
+        }
+
+        try {
+            const catData = await apiFetch('/products/categories', {
+                method: 'POST',
+                body: JSON.stringify({ category_name: newCatName })
+            });
+            categoryId = catData.category.category_id;
+            await loadCategories();
+        } catch (err) {
+            showToast(err.message, 'error');
+            return;
+        }
+    }
+
     btn.textContent = isEditMode ? 'Saving...' : 'Adding...';
     btn.disabled = true;
 
     try {
         const formData = new FormData();
         formData.append('name', name);
-        formData.append('category_id', category);
+        formData.append('category_id', categoryId);
         formData.append('price', price);
         formData.append('stock', stock);
         formData.append('description', description);
@@ -467,6 +513,9 @@ function openEditProduct(productId) {
     document.getElementById('submitProductBtn').textContent = 'Save Changes';
     document.getElementById('cancelEditBtn').style.display = 'inline-block';
 
+    document.getElementById('newCategoryWrap').classList.add('hidden');
+    document.getElementById('newCategoryName').value = '';
+
     if (product.image_url) {
         document.getElementById('previewImg').src = product.image_url;
         document.getElementById('imageUploadArea').classList.add('hidden');
@@ -492,6 +541,8 @@ function resetProductForm() {
     document.getElementById('imagePreview').classList.add('hidden');
     document.getElementById('imageUploadArea').classList.remove('hidden');
     document.getElementById('previewImg').src = '';
+    document.getElementById('newCategoryWrap').classList.add('hidden');
+    document.getElementById('newCategoryName').value = '';
 }
 
 // =============================================

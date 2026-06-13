@@ -5,6 +5,7 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
+const { requireAuth, requireCustomer, requireSeller } = require('../middleware/auth');
 
 // GET /api/products/categories
 router.get('/categories', async (req, res) => {
@@ -26,6 +27,52 @@ router.get('/categories', async (req, res) => {
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Failed to fetch categories' });
+    }
+});
+
+// POST /api/products/categories — seller adds new category
+router.post('/categories', requireAuth, requireSeller, async (req, res) => {
+    try {
+        const { category_name, description } = req.body;
+ 
+        if (!category_name || !category_name.trim()) {
+            return res.status(400).json({ error: 'Category name is required' });
+        }
+ 
+        const trimmed = category_name.trim();
+ 
+        // Case-insensitive duplicate check
+        const existing = await db.query(
+            'SELECT category_id, category_name FROM categories WHERE LOWER(category_name) = LOWER($1)',
+            [trimmed]
+        );
+ 
+        if (existing.rows.length > 0) {
+            // Return existing category instead of erroring —
+            // lets the frontend just use it directly
+            return res.status(200).json({
+                message: 'Category already exists',
+                category: existing.rows[0],
+                existed: true
+            });
+        }
+ 
+        const result = await db.query(
+            `INSERT INTO categories (category_name, description)
+             VALUES ($1, $2)
+             RETURNING category_id, category_name, description`,
+            [trimmed, description || '']
+        );
+ 
+        res.status(201).json({
+            message: 'Category created',
+            category: result.rows[0],
+            existed: false
+        });
+ 
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to create category' });
     }
 });
 
@@ -170,7 +217,7 @@ router.get('/:id', async (req, res) => {
 module.exports = router;
 
 // POST /api/products/review
-const { requireAuth, requireCustomer } = require('../middleware/auth');
+// const { requireAuth, requireCustomer } = require('../middleware/auth');
 
 router.post('/review', requireAuth, requireCustomer, async (req, res) => {
     try {

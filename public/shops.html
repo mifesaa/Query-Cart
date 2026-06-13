@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Shops — Query Cart</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/products.css">
+    <link rel="stylesheet" href="css/shops.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="nav-logo">Query Cart</a>
+        <div class="nav-links">
+            <a href="products.html">Shop</a>
+            <a href="#" id="cartLink">Cart <span class="cart-count" id="cartCount">0</span></a>
+        </div>
+        <div class="nav-auth" id="navAuth">
+            <a href="login.html" class="btn-ghost">Login</a>
+            <a href="register.html" class="btn-solid">Register</a>
+        </div>
+        <div class="nav-user hidden" id="navUser">
+            <span id="userName"></span>
+            <a href="#" id="logoutBtn" class="btn-ghost">Logout</a>
+        </div>
+    </nav>
+
+    <!-- HERO SEARCH -->
+    <div class="products-hero">
+        <h1 class="products-hero-title">Explore Our Shops</h1>
+        <div class="search-bar-wrap">
+            <input type="text" id="searchInput" class="search-bar-input" placeholder="Search shops by name..." />
+            <button class="search-bar-btn" id="searchBtn">🔍</button>
+        </div>
+    </div>
+
+    <!-- FILTER BAR -->
+    <div class="filter-bar">
+        <div class="filter-bar-inner">
+            <div class="filter-bar-group">
+                <span class="filter-bar-label">Category :</span>
+                <select id="categoryFilter" class="filter-bar-select">
+                    <option value="">All Categories</option>
+                </select>
+            </div>
+            <div class="filter-bar-group">
+                <span class="filter-bar-label">Sort By :</span>
+                <select id="sortSelect" class="filter-bar-select">
+                    <option value="rating">Top Rated</option>
+                    <option value="name_asc">Name: A–Z</option>
+                    <option value="products">Most Products</option>
+                </select>
+            </div>
+            <button class="filter-apply-btn" id="applyFilters">Apply Filter</button>
+        </div>
+    </div>
+
+    <!-- SHOPS SECTION -->
+    <div class="categories-section-wrap">
+        <h2 class="section-big-title">Available Shops</h2>
+        <div class="shops-count-badge" id="shopsCount"></div>
+        <div class="shops-grid" id="shopsGrid">
+            <div class="spinner"></div>
+        </div>
+        <div class="empty-state hidden" id="emptyState">
+            <div class="empty-icon">🏪</div>
+            <h3>No shops found</h3>
+            <p>Try adjusting your filters or search term</p>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/shops.js"></script>
+</body>
+</html>
