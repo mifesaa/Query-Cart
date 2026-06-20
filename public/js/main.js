@@ -2,7 +2,7 @@
 // ECOM — main.js (shared utilities)
 // =============================================
 
-const API = 'http://localhost:5030/api';
+const API = 'https://query-cart.onrender.com';
 
 // --- AUTH HELPERS ---
 function getUser() {
