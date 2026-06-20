@@ -148,6 +148,38 @@ router.get('/', async (req, res) => {
     }
 });
 
+// GET /api/products/reviewable — products from delivered orders,
+// with a flag for whether the customer already reviewed each one
+router.get('/reviewable', requireAuth, requireCustomer, async (req, res) => {
+    try {
+        const user_id = req.user.user_id;
+ 
+        const result = await db.query(`
+            SELECT DISTINCT
+                p.product_id, p.name, p.image_url,
+                c.category_name, s.shop_name,
+                MAX(o.ordered_at) AS last_ordered,
+                EXISTS (
+                    SELECT 1 FROM reviews r
+                    WHERE r.product_id = p.product_id AND r.user_id = $1
+                ) AS already_reviewed
+            FROM order_items oi
+            JOIN orders o      ON oi.order_id = o.order_id
+            JOIN products p   ON oi.product_id = p.product_id
+            JOIN categories c ON p.category_id = c.category_id
+            JOIN shops s      ON p.shop_id = s.shop_id
+            WHERE o.user_id = $1 AND o.status = 'delivered'
+            GROUP BY p.product_id, p.name, p.image_url, c.category_name, s.shop_name
+            ORDER BY last_ordered DESC
+        `, [user_id]);
+ 
+        res.json({ products: result.rows });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to fetch reviewable products' });
+    }
+});
+
 // GET /api/products/:id
 router.get('/:id', async (req, res) => {
     try {
@@ -156,7 +188,7 @@ router.get('/:id', async (req, res) => {
         const productResult = await db.query(`
             SELECT
                 p.product_id, p.name, p.description,
-                p.price, p.stock, p.is_available, p.created_at,
+                p.price, p.stock, p.is_available, p.image_url, p.created_at,
                 p.category_id,
                 c.category_name,
                 s.shop_id, s.shop_name, s.rating AS shop_rating, s.description AS shop_description,

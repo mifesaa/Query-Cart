@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Coupons — Query Cart</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/coupons.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="index.html" class="nav-logo">Query Cart</a>
+        <div class="nav-links"></div>
+        <div class="nav-auth" id="navAuth">
+            <a href="login.html" class="btn-ghost">Login</a>
+            <a href="register.html" class="btn-solid">Register</a>
+        </div>
+        <div class="nav-user hidden" id="navUser">
+            <span id="userName"></span>
+            <a href="#" id="logoutBtn" class="btn-ghost">Logout</a>
+        </div>
+    </nav>
+
+    <!-- BREADCRUMB -->
+    <div class="breadcrumb">
+        <a href="cart.html">Cart</a>
+        <span>›</span>
+        <span>Coupons</span>
+    </div>
+
+    <div class="coupons-page">
+        <div class="tab-header center">
+            <div class="tab-eyebrow">Save More</div>
+            <h1 class="tab-title">Available Coupons</h1>
+            <p class="coupons-sub">Copy a code below and apply it on the Cart page at checkout.</p>
+        </div>
+
+        <div class="coupons-grid" id="couponsGrid">
+            <div class="spinner"></div>
+        </div>
+
+        <div class="empty-state hidden" id="emptyState">
+            <div class="empty-icon">🎟️</div>
+            <h3>No coupons available right now</h3>
+            <p>Check back later for new offers.</p>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/coupons.js"></script>
+</body>
+</html>

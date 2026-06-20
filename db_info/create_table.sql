@@ -137,3 +137,12 @@ CREATE TABLE cart (
 
 ALTER TABLE products 
 ADD COLUMN image_url VARCHAR(300);
+
+CREATE TABLE coupon_usage (
+    usage_id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL REFERENCES users(user_id),
+    coupon_id INTEGER NOT NULL REFERENCES coupons(coupon_id),
+    order_id INTEGER NOT NULL REFERENCES orders(order_id),
+    used_at TIMESTAMP DEFAULT NOW(),
+    UNIQUE(user_id, coupon_id)
+);

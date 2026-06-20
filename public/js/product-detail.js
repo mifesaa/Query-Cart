@@ -3,7 +3,6 @@
 // =============================================
 
 let currentProduct = null;
-let selectedRating = 0;
 let quantity = 1;
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -57,6 +56,9 @@ async function loadProduct(id) {
 function renderDetail(p) {
     const wrap = document.getElementById('detailWrap');
     const icon = getProductIcon(p.category_name);
+    const thumb = p.image_url
+        ? `<img src="${p.image_url}" alt="${p.name}" />`
+        : icon;
     const inStock = p.stock > 0;
     const lowStock = p.stock > 0 && p.stock < 5;
 
@@ -69,12 +71,11 @@ function renderDetail(p) {
         <div class="detail-grid">
             <!-- LEFT -->
             <div class="detail-visual">
-                <div class="detail-thumb">${icon}</div>
+                <div class="detail-thumb">${thumb}</div>
                 <div class="detail-shop-card">
                     <div class="detail-shop-info">
                         <span class="detail-shop-label">Sold by</span>
                         <span class="detail-shop-name">${p.shop_name}</span>
-                        <span class="detail-shop-rating">⭐ ${p.shop_rating || 'New'} shop rating</span>
                     </div>
                 
                 </div>
@@ -164,7 +165,7 @@ function renderDetail(p) {
     });
 }
 
-// --- RENDER REVIEWS ---
+// --- RENDER REVIEWS (read-only) ---
 function renderReviews(reviews, avgRating, reviewCount) {
     const wrap = document.getElementById('reviewsWrap');
     const list = document.getElementById('reviewsList');
@@ -181,7 +182,7 @@ function renderReviews(reviews, avgRating, reviewCount) {
 
     // Review cards
     if (reviews.length === 0) {
-        list.innerHTML = '<div class="no-reviews">No reviews yet. Be the first to review!</div>';
+        list.innerHTML = '<div class="no-reviews">No reviews yet for this product.</div>';
     } else {
         list.innerHTML = '';
         reviews.forEach(r => {
@@ -198,71 +199,6 @@ function renderReviews(reviews, avgRating, reviewCount) {
             list.appendChild(card);
         });
     }
-
-    // Show write review or login prompt
-    const user = getUser();
-    if (isLoggedIn() && user.role === 'customer') {
-        document.getElementById('writeReview').classList.remove('hidden');
-        setupStarPicker();
-        setupReviewSubmit();
-    } else if (!isLoggedIn()) {
-        document.getElementById('loginToReview').classList.remove('hidden');
-    }
-}
-
-// --- STAR PICKER ---
-function setupStarPicker() {
-    const stars = document.querySelectorAll('.star-opt');
-    stars.forEach(star => {
-        star.addEventListener('click', () => {
-            selectedRating = parseInt(star.dataset.val);
-            stars.forEach((s, i) => {
-                s.classList.toggle('active', i < selectedRating);
-            });
-        });
-
-        star.addEventListener('mouseover', () => {
-            const val = parseInt(star.dataset.val);
-            stars.forEach((s, i) => s.classList.toggle('active', i < val));
-        });
-
-        star.addEventListener('mouseout', () => {
-            stars.forEach((s, i) => s.classList.toggle('active', i < selectedRating));
-        });
-    });
-}
-
-// --- SUBMIT REVIEW ---
-function setupReviewSubmit() {
-    const btn = document.getElementById('submitReview');
-    btn.addEventListener('click', async () => {
-        const comment = document.getElementById('reviewComment').value.trim();
-
-        if (selectedRating === 0) {
-            showToast('Please select a star rating', 'error');
-            return;
-        }
-
-        btn.textContent = 'Submitting...';
-        btn.disabled = true;
-
-        try {
-            await apiFetch('/products/review', {
-                method: 'POST',
-                body: JSON.stringify({
-                    product_id: currentProduct.product_id,
-                    rating: selectedRating,
-                    comment
-                })
-            });
-            showToast('Review submitted!', 'success');
-            setTimeout(() => window.location.reload(), 1000);
-        } catch (err) {
-            showToast(err.message, 'error');
-            btn.textContent = 'Submit Review';
-            btn.disabled = false;
-        }
-    });
 }
 
 // --- RENDER RELATED ---

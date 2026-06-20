@@ -345,3 +345,12 @@ INSERT INTO cart (user_id, product_id, quantity) VALUES
 (11, 27, 2),
 (12, 3, 1),
 (12, 18, 1);
+
+UPDATE coupons SET expiry_date = '2026-12-31', is_active = TRUE WHERE coupon_id = 1; -- SAVE10
+UPDATE coupons SET expiry_date = '2026-08-31', is_active = TRUE WHERE coupon_id = 2; -- WELCOME20
+UPDATE coupons SET expiry_date = '2026-09-30', is_active = TRUE WHERE coupon_id = 3; -- FLAT15
+UPDATE coupons SET expiry_date = '2026-07-15', is_active = TRUE WHERE coupon_id = 4; -- EIDSPECIAL
+UPDATE coupons SET expiry_date = '2026-09-30', is_active = TRUE WHERE coupon_id = 5; -- SUMMER5
+UPDATE coupons SET expiry_date = '2026-10-31', is_active = TRUE WHERE coupon_id = 6; -- NEWUSER30
+UPDATE coupons SET expiry_date = '2026-11-30', is_active = TRUE WHERE coupon_id = 7; -- TECH10
+UPDATE coupons SET expiry_date = '2026-08-15', is_active = TRUE WHERE coupon_id = 8; -- FESTIVE50

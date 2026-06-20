@@ -599,12 +599,19 @@ function renderSellerOrders() {
                     <div class="seller-order-id">Order #${order.order_id}</div>
                     <div class="seller-order-date">${new Date(order.ordered_at).toLocaleDateString('en-BD', { year:'numeric', month:'short', day:'numeric' })}</div>
                 </div>
-                <select class="order-status-select" data-order-id="${order.order_id}">
-                    <option value="pending"    ${order.status==='pending'?'selected':''}>Pending</option>
-                    <option value="processing" ${order.status==='processing'?'selected':''}>Processing</option>
-                    <option value="shipped"    ${order.status==='shipped'?'selected':''}>Shipped</option>
-                    <option value="delivered"  ${order.status==='delivered'?'selected':''}>Delivered</option>
-                    <option value="cancelled"  ${order.status==='cancelled'?'selected':''}>Cancelled</option>
+                <select class="order-status-select" data-order-id="${order.order_id}"
+                    ${(order.status === 'delivered' || order.status === 'cancelled') ? 'disabled' : ''}>
+                    
+                    ${order.status === 'delivered' ? '<option value="delivered" selected>Delivered</option>' : ''}
+                    
+                    <option value="pending" ${order.status === 'pending' ? 'selected' : ''}>Pending</option>
+                    
+                    <option value="processing" ${order.status === 'processing' ? 'selected' : ''}>Processing</option>
+                    
+                    <option value="shipped" ${order.status === 'shipped' ? 'selected' : ''}>Shipped</option>
+                    
+                    <option value="cancelled" ${order.status === 'cancelled' ? 'selected' : ''}>Cancelled</option>
+                    
                 </select>
             </div>
             <div class="seller-order-items">

@@ -7,24 +7,57 @@ const router = express.Router();
 const db = require('../db');
 const { requireAuth, requireCustomer } = require('../middleware/auth');
 
+router.get('/coupons', requireAuth, requireCustomer, async (req, res) => {
+    try {
+        const user_id = req.user.user_id;
+ 
+        const result = await db.query(`
+            SELECT
+                c.coupon_id, c.code, c.discount_percent, c.expiry_date,
+                EXISTS (
+                    SELECT 1 FROM coupon_usage cu
+                    WHERE cu.coupon_id = c.coupon_id AND cu.user_id = $1
+                ) AS already_used
+            FROM coupons c
+            WHERE c.is_active = TRUE AND c.expiry_date >= CURRENT_DATE
+            ORDER BY c.expiry_date ASC
+        `, [user_id]);
+ 
+        res.json({ coupons: result.rows });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to fetch coupons' });
+    }
+});
+
 // GET /api/orders/coupon/:code — validate coupon by code
-router.get('/coupon/:code', async (req, res) => {
+router.get('/coupon/:code', requireAuth, requireCustomer, async (req, res) => {
     try {
         const { code } = req.params;
+        const user_id = req.user.user_id;
+ 
         const result = await db.query(`
             SELECT coupon_id, code, discount_percent, expiry_date, is_active
             FROM coupons WHERE UPPER(code) = UPPER($1)
         `, [code]);
-
+ 
         if (result.rows.length === 0)
             return res.status(404).json({ error: 'Coupon not found' });
-
+ 
         const coupon = result.rows[0];
         if (!coupon.is_active)
             return res.status(400).json({ error: 'Coupon is no longer active' });
         if (new Date(coupon.expiry_date) < new Date())
             return res.status(400).json({ error: 'Coupon has expired' });
-
+ 
+        // Check if already used by this customer
+        const used = await db.query(
+            'SELECT usage_id FROM coupon_usage WHERE user_id = $1 AND coupon_id = $2',
+            [user_id, coupon.coupon_id]
+        );
+        if (used.rows.length > 0)
+            return res.status(400).json({ error: 'You have already used this coupon' });
+ 
         res.json({ coupon });
     } catch (err) {
         console.error(err);
@@ -195,7 +228,7 @@ router.post('/', requireAuth, requireCustomer, async (req, res) => {
             return sum + (parseFloat(item.price) * item.quantity);
         }, 0);
 
-        // Apply coupon
+       // Apply coupon
         let validCouponId = null;
         if (coupon_id) {
             const coupon = await db.query(
@@ -203,9 +236,17 @@ router.post('/', requireAuth, requireCustomer, async (req, res) => {
                 [coupon_id]
             );
             if (coupon.rows.length > 0) {
-                const discount = (total * parseFloat(coupon.rows[0].discount_percent)) / 100;
-                total -= discount;
-                validCouponId = coupon_id;
+                // check not already used by this user
+                const alreadyUsed = await db.query(
+                    'SELECT usage_id FROM coupon_usage WHERE user_id = $1 AND coupon_id = $2',
+                    [user_id, coupon_id]
+                );
+                if (alreadyUsed.rows.length === 0) {
+                    const discount = (total * parseFloat(coupon.rows[0].discount_percent)) / 100;
+                    total -= discount;
+                    validCouponId = coupon_id;
+                }
+                // if already used, silently ignore the coupon (no discount applied)
             }
         }
 
@@ -217,6 +258,14 @@ router.post('/', requireAuth, requireCustomer, async (req, res) => {
         `, [user_id, address_id, validCouponId, total.toFixed(2)]);
 
         const order_id = orderResult.rows[0].order_id;
+
+        // Record coupon usage if a coupon was actually applied
+        if (validCouponId) {
+            await db.query(`
+                INSERT INTO coupon_usage (user_id, coupon_id, order_id)
+                VALUES ($1, $2, $3)
+            `, [user_id, validCouponId, order_id]);
+        }
 
         // Insert items + deduct stock
         for (const item of cartResult.rows) {
@@ -243,6 +292,65 @@ router.post('/', requireAuth, requireCustomer, async (req, res) => {
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: 'Failed to place order' });
+    }
+});
+
+// PATCH /api/orders/:id/cancel — customer cancels their own order
+router.patch('/:id/cancel', requireAuth, requireCustomer, async (req, res) => {
+    try {
+        const user_id = req.user.user_id;
+        const { id } = req.params;
+ 
+        const order = await db.query(
+            'SELECT status FROM orders WHERE order_id = $1 AND user_id = $2',
+            [id, user_id]
+        );
+ 
+        if (order.rows.length === 0)
+            return res.status(404).json({ error: 'Order not found' });
+ 
+        const status = order.rows[0].status;
+        if (status !== 'pending' && status !== 'processing')
+            return res.status(400).json({ error: 'Order can no longer be cancelled' });
+ 
+        await db.query(
+            "UPDATE orders SET status = 'cancelled' WHERE order_id = $1",
+            [id]
+        );
+ 
+        res.json({ message: 'Order cancelled' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to cancel order' });
+    }
+});
+ 
+// PATCH /api/orders/:id/confirm-delivery — customer confirms receipt
+router.patch('/:id/confirm-delivery', requireAuth, requireCustomer, async (req, res) => {
+    try {
+        const user_id = req.user.user_id;
+        const { id } = req.params;
+ 
+        const order = await db.query(
+            'SELECT status FROM orders WHERE order_id = $1 AND user_id = $2',
+            [id, user_id]
+        );
+ 
+        if (order.rows.length === 0)
+            return res.status(404).json({ error: 'Order not found' });
+ 
+        if (order.rows[0].status !== 'shipped')
+            return res.status(400).json({ error: 'Order must be shipped before confirming delivery' });
+ 
+        await db.query(
+            "UPDATE orders SET status = 'delivered' WHERE order_id = $1",
+            [id]
+        );
+ 
+        res.json({ message: 'Order marked as delivered' });
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Failed to confirm delivery' });
     }
 });
 

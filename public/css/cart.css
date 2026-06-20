@@ -418,6 +418,17 @@
     background: rgba(196,101,90,0.1);
 }
 
+.view-coupons-link {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--accent);
+    transition: var(--transition);
+}
+
+.view-coupons-link:hover { color: var(--rose); }
+
 .summary-divider {
     height: 1.5px;
     background: rgba(255,245,240,0.8);

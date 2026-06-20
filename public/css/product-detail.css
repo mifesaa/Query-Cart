@@ -54,6 +54,13 @@
     margin-bottom: 1.2rem;
 }
 
+.detail-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+}
+
 .detail-shop-card {
     background: var(--surface);
     border: 1.5px solid rgba(255,245,240,0.95);
