@@ -46,7 +46,7 @@ async function loadShops() {
     const sort      = document.getElementById('sortSelect').value;
 
     try {
-        let url = `shops?sort=${sort}`;
+        let url = `api/shops?sort=${sort}`;
         if (search)   url += `&search=${encodeURIComponent(search)}`;
         if (category) url += `&category=${category}`;
 

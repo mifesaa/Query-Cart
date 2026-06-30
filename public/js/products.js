@@ -135,7 +135,7 @@ async function loadProducts() {
     emptyState.classList.add('hidden');
 
     try {
-        let url = 'products?limit=40';
+        let url = 'api/products?limit=40';
         if (activeFilters.category) url += `&category=${activeFilters.category}`;
         if (activeFilters.search)   url += `&search=${encodeURIComponent(activeFilters.search)}`;
         if (activeFilters.minPrice) url += `&minPrice=${activeFilters.minPrice}`;
