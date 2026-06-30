@@ -2,7 +2,7 @@
 // ECOM — main.js (shared utilities)
 // =============================================
 
-const API = 'https://query-cart.onrender.com';
+const API = 'https://query-cart.onrender.com/';
 
 // --- AUTH HELPERS ---
 function getUser() {
