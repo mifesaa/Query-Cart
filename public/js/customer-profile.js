@@ -54,7 +54,7 @@ function switchTab(tabName) {
 // =============================================
 async function loadSidebar() {
     try {
-        const data = await apiFetch('/auth/me');
+        const data = await apiFetch('api/auth/me');
         const user = data.user;
         document.getElementById('sidebarUserName').textContent = `Hello ${user.name.split(' ')[0]}`;
 
@@ -71,12 +71,12 @@ async function loadProfile() {
     const wrap = document.getElementById('profileWrap');
 
     try {
-        const data = await apiFetch('/auth/me');
+        const data = await apiFetch('api/auth/me');
         const user = data.user;
 
         let defaultAddress = 'Not set';
         try {
-            const addrData = await apiFetch('/orders/addresses');
+            const addrData = await apiFetch('api/orders/addresses');
             const def = addrData.addresses.find(a => a.is_default) || addrData.addresses[0];
             if (def) defaultAddress = `${def.street}, ${def.city}`;
         } catch (e) {}
@@ -124,7 +124,7 @@ async function loadProfile() {
 // EDIT PROFILE TAB
 // =============================================
 function setupEditProfile() {
-    apiFetch('/auth/me').then(data => {
+    apiFetch('api/auth/me').then(data => {
         const user = data.user;
         document.getElementById('editName').value = user.name;
         document.getElementById('editEmail').value = user.email;
@@ -147,7 +147,7 @@ function setupEditProfile() {
         btn.disabled = true;
 
         try {
-            await apiFetch('/auth/profile', {
+            await apiFetch('api/auth/profile', {
                 method: 'PUT',
                 body: JSON.stringify({ name, phone })
             });
@@ -202,7 +202,7 @@ function setupChangePassword() {
         btn.disabled = true;
 
         try {
-            await apiFetch('/auth/password', {
+            await apiFetch('api/auth/password', {
                 method: 'PUT',
                 body: JSON.stringify({ current_password: current, new_password: newPass })
             });
@@ -237,7 +237,7 @@ async function loadOrders() {
     list.innerHTML = '<div class="spinner"></div>';
 
     try {
-        const data = await apiFetch('/orders');
+        const data = await apiFetch('api/orders');
         customerOrders = data.orders;
         renderOrders();
     } catch (err) {
@@ -298,7 +298,7 @@ async function openOrderDetail(orderId) {
     wrap.innerHTML = '<div class="spinner"></div>';
 
     try {
-        const data = await apiFetch(`/orders/${orderId}`);
+        const data = await apiFetch(`api/orders/${orderId}`);
         currentOrderDetail = data;
         renderOrderDetail(data);
     } catch (err) {
@@ -412,7 +412,7 @@ function renderOrderDetail(data) {
             cancelBtn.textContent = 'Cancelling...';
             cancelBtn.disabled = true;
             try {
-                await apiFetch(`/orders/${order.order_id}/cancel`, { method: 'PATCH' });
+                await apiFetch(`api/orders/${order.order_id}/cancel`, { method: 'PATCH' });
                 showToast('Order cancelled', 'success');
                 openOrderDetail(order.order_id);
             } catch (err) {
@@ -429,7 +429,7 @@ function renderOrderDetail(data) {
             confirmBtn.textContent = 'Confirming...';
             confirmBtn.disabled = true;
             try {
-                await apiFetch(`/orders/${order.order_id}/confirm-delivery`, { method: 'PATCH' });
+                await apiFetch(`api/orders/${order.order_id}/confirm-delivery`, { method: 'PATCH' });
                 showToast('Order marked as delivered!', 'success');
                 openOrderDetail(order.order_id);
             } catch (err) {
@@ -463,7 +463,7 @@ async function loadReviewProducts() {
     list.innerHTML = '<div class="spinner"></div>';
  
     try {
-        const data = await apiFetch('/products/reviewable');
+        const data = await apiFetch('api/products/reviewable');
         const products = data.products;
  
         if (products.length === 0) {
@@ -561,7 +561,7 @@ function setupReviewInteractions() {
             btn.disabled = true;
  
             try {
-                await apiFetch('/products/review', {
+                await apiFetch('api/products/review', {
                     method: 'POST',
                     body: JSON.stringify({ product_id, rating, comment })
                 });

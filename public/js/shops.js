@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // --- LOAD CATEGORIES FOR FILTER DROPDOWN ---
 async function loadCategoriesForFilter() {
     try {
-        const data = await apiFetch('/products/categories');
+        const data = await apiFetch('api/products/categories');
         const select = document.getElementById('categoryFilter');
         data.categories.forEach(cat => {
             select.innerHTML += `<option value="${cat.category_id}">${cat.category_name}</option>`;

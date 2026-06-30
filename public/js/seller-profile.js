@@ -21,8 +21,8 @@ async function loadProfile() {
 
     try {
         const [userData, shopStatus] = await Promise.all([
-            apiFetch('/auth/me'),
-            apiFetch('/seller/shop/status')
+            apiFetch('api/auth/me'),
+            apiFetch('api/seller/shop/status')
         ]);
 
         const user = userData.user;

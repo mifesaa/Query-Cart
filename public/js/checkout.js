@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // --- LOAD CART ---
 async function loadCart() {
     try {
-        cartData = await apiFetch('/cart');
+        cartData = await apiFetch('api/cart');
 
         if (cartData.items.length === 0) {
             window.location.href = 'cart.html';
@@ -87,7 +87,7 @@ async function computeSummary(subtotal) {
 
     if (couponId) {
         try {
-            const data = await apiFetch(`/orders/coupon/by-id/${couponId}`);
+            const data = await apiFetch(`api/orders/coupon/by-id/${couponId}`);
             discountPercent = parseFloat(data.coupon.discount_percent);
             const discount = (subtotal * discountPercent) / 100;
             finalTotal = subtotal - discount;
@@ -108,7 +108,7 @@ async function loadAddresses() {
     const list = document.getElementById('addressList');
 
     try {
-        const data = await apiFetch('/orders/addresses');
+        const data = await apiFetch('api/orders/addresses');
         const addresses = data.addresses;
 
         if (addresses.length === 0) {
@@ -177,7 +177,7 @@ function setupAddAddress() {
         saveBtn.disabled = true;
 
         try {
-            await apiFetch('/orders/addresses', {
+            await apiFetch('api/orders/addresses', {
                 method: 'POST',
                 body: JSON.stringify({ street, city, postal_code: postal })
             });
@@ -213,7 +213,7 @@ function setupPlaceOrder() {
         btn.disabled = true;
 
         try {
-            const data = await apiFetch('/orders', {
+            const data = await apiFetch('api/orders', {
                 method: 'POST',
                 body: JSON.stringify({
                     address_id: selectedAddressId,

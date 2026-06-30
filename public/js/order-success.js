@@ -23,7 +23,7 @@ async function loadOrderSuccess(orderId) {
     const card = document.getElementById('successCard');
 
     try {
-        const data = await apiFetch(`/orders/${orderId}`);
+        const data = await apiFetch(`api/orders/${orderId}`);
         const order = data.order;
         const items = data.items;
 

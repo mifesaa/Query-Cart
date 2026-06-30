@@ -58,7 +58,7 @@ function showToast(message, type = 'default') {
 async function updateCartCount() {
     if (!isLoggedIn()) return;
     try {
-        const data = await apiFetch('/cart');
+        const data = await apiFetch('api/cart');
         const count = data.items ? data.items.length : 0;
         const el = document.getElementById('cartCount');
         if (el) el.textContent = count;

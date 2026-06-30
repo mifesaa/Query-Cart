@@ -21,7 +21,7 @@ async function loadCoupons() {
     const emptyState = document.getElementById('emptyState');
 
     try {
-        const data = await apiFetch('/orders/coupons');
+        const data = await apiFetch('api/orders/coupons');
         const coupons = data.coupons;
 
         if (coupons.length === 0) {

@@ -22,7 +22,7 @@ async function loadProduct(id) {
     const wrap = document.getElementById('detailWrap');
 
     try {
-        const data = await apiFetch(`/products/${id}`);
+        const data = await apiFetch(`api/products/${id}`);
         currentProduct = data.product;
 
         // Breadcrumb
@@ -247,7 +247,7 @@ async function handleAddToCart(productId, qty) {
     btn.disabled = true;
 
     try {
-        await apiFetch('/cart', {
+        await apiFetch('api/cart', {
             method: 'POST',
             body: JSON.stringify({ product_id: productId, quantity: qty })
         });
@@ -283,7 +283,7 @@ async function handleAddToWishlist(productId) {
     btn.disabled = true;
 
     try {
-        await apiFetch('/cart/wishlist', {
+        await apiFetch('api/cart/wishlist', {
             method: 'POST',
             body: JSON.stringify({ product_id: productId })
         });

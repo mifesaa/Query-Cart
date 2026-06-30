@@ -86,7 +86,7 @@ function renderShopRequiredPrompt(tabName) {
 // =============================================
 async function loadShopData() {
     try {
-        const data = await apiFetch('/seller/shop/status');
+        const data = await apiFetch('api/seller/shop/status');
         hasShop = data.has_shop;
         shopData = data.shop;
 
@@ -165,7 +165,7 @@ function setupCreateShopForm() {
         btn.disabled = true;
 
         try {
-            await apiFetch('/seller/shop', {
+            await apiFetch('api/seller/shop', {
                 method: 'POST',
                 body: JSON.stringify({ shop_name: name, description: desc })
             });
@@ -184,7 +184,7 @@ function setupCreateShopForm() {
 // =============================================
 async function loadOverview() {
     try {
-        const data = await apiFetch('/seller/overview');
+        const data = await apiFetch('api/seller/overview');
 
         document.getElementById('statProducts').textContent = data.total_products;
         document.getElementById('statActive').textContent = data.active_products;
@@ -240,7 +240,7 @@ async function loadSellerProducts() {
     list.innerHTML = '<div class="spinner"></div>';
 
     try {
-        const data = await apiFetch('/seller/products');
+        const data = await apiFetch('api/seller/products');
         sellerProducts = data.products;
         renderSellerProducts(sellerProducts);
     } catch (err) {
@@ -308,7 +308,7 @@ function renderSellerProducts(products) {
     list.querySelectorAll('.availability-checkbox').forEach(cb => {
         cb.addEventListener('change', async () => {
             try {
-                await apiFetch(`/seller/products/${cb.dataset.productId}/toggle`, { method: 'PATCH' });
+                await apiFetch(`api/seller/products/${cb.dataset.productId}/toggle`, { method: 'PATCH' });
                 showToast('Product updated', 'success');
                 loadSellerProducts();
             } catch (err) {
@@ -326,7 +326,7 @@ function renderSellerProducts(products) {
         btn.addEventListener('click', async () => {
             if (!confirm('Delete this product? This cannot be undone.')) return;
             try {
-                await apiFetch(`/seller/products/${btn.dataset.productId}`, { method: 'DELETE' });
+                await apiFetch(`api/seller/products/${btn.dataset.productId}`, { method: 'DELETE' });
                 showToast('Product deleted', 'success');
                 loadSellerProducts();
                 loadOverview();
@@ -345,7 +345,7 @@ function renderSellerProducts(products) {
 // =============================================
 async function loadCategories() {
     try {
-        const data = await apiFetch('/products/categories');
+        const data = await apiFetch('api/products/categories');
         allCategories = data.categories;
         const select = document.getElementById('productCategory');
         const currentVal = select.value;
@@ -444,7 +444,7 @@ async function submitProductForm() {
         }
 
         try {
-            const catData = await apiFetch('/products/categories', {
+            const catData = await apiFetch('api/products/categories', {
                 method: 'POST',
                 body: JSON.stringify({ category_name: newCatName })
             });
@@ -564,7 +564,7 @@ async function loadSellerOrders() {
     list.innerHTML = '<div class="spinner"></div>';
 
     try {
-        const data = await apiFetch('/seller/orders');
+        const data = await apiFetch('api/seller/orders');
         sellerOrders = data.orders;
         renderSellerOrders();
     } catch (err) {
@@ -639,7 +639,7 @@ function renderSellerOrders() {
     list.querySelectorAll('.order-status-select').forEach(select => {
         select.addEventListener('change', async () => {
             try {
-                await apiFetch(`/seller/orders/${select.dataset.orderId}/status`, {
+                await apiFetch(`api/seller/orders/${select.dataset.orderId}/status`, {
                     method: 'PATCH',
                     body: JSON.stringify({ status: select.value })
                 });
@@ -669,7 +669,7 @@ function setupSettings() {
         btn.disabled = true;
 
         try {
-            await apiFetch('/seller/shop', {
+            await apiFetch('api/seller/shop', {
                 method: 'PUT',
                 body: JSON.stringify({
                     shop_name: document.getElementById('settingsShopName').value.trim(),
@@ -690,7 +690,7 @@ function setupSettings() {
 
 async function loadAccountInfo() {
     try {
-        const data = await apiFetch('/auth/me');
+        const data = await apiFetch('api/auth/me');
         const user = data.user;
         const el = document.getElementById('accountInfoList');
         if (!el) return;

@@ -15,7 +15,7 @@ async function loadCategories() {
     grid.innerHTML = '<div class="spinner"></div>';
 
     try {
-        const data = await apiFetch('/products/categories');
+        const data = await apiFetch('api/products/categories');
         grid.innerHTML = '';
 
         data.categories.forEach(cat => {
@@ -43,7 +43,7 @@ async function loadFeaturedProducts() {
     grid.innerHTML = '<div class="spinner"></div>';
 
     try {
-        const data = await apiFetch('/products?limit=8');
+        const data = await apiFetch('api/products?limit=8');
         grid.innerHTML = '';
 
         data.products.forEach(p => {
@@ -84,7 +84,7 @@ async function loadFeaturedProducts() {
                     return;
                 }
                 try {
-                    await apiFetch('/cart', {
+                    await apiFetch('api/cart', {
                         method: 'POST',
                         body: JSON.stringify({ product_id: btn.dataset.id, quantity: 1 })
                     });

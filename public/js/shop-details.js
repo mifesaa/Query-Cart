@@ -22,7 +22,7 @@ async function loadShop(id) {
     const countEl = document.getElementById('productsCount');
 
     try {
-        const data = await apiFetch(`/shops/${id}`);
+        const data = await apiFetch(`api/shops/${id}`);
         const shop = data.shop;
         const products = data.products;
 

@@ -31,7 +31,7 @@ async function loadCart() {
     const clearBtn = document.getElementById('clearCartBtn');
 
     try {
-        const data = await apiFetch('/cart');
+        const data = await apiFetch('api/cart');
         cartItems = data.items;
         cartTotal = parseFloat(data.total);
 
@@ -122,7 +122,7 @@ function renderCartItems() {
     // Clear all
     document.getElementById('clearCartBtn').addEventListener('click', async () => {
         if (!confirm('Clear your entire cart?')) return;
-        await apiFetch('/cart', { method: 'DELETE' });
+        await apiFetch('api/cart', { method: 'DELETE' });
         loadCart();
         showToast('Cart cleared');
     });
@@ -131,7 +131,7 @@ function renderCartItems() {
 // --- UPDATE QTY ---
 async function updateQty(cartId, qty) {
     try {
-        await apiFetch(`/cart/${cartId}`, {
+        await apiFetch(`api/cart/${cartId}`, {
             method: 'PATCH',
             body: JSON.stringify({ quantity: qty })
         });
@@ -144,7 +144,7 @@ async function updateQty(cartId, qty) {
 // --- REMOVE ITEM ---
 async function removeItem(cartId) {
     try {
-        await apiFetch(`/cart/${cartId}`, { method: 'DELETE' });
+        await apiFetch(`api/cart/${cartId}`, { method: 'DELETE' });
         showToast('Item removed');
         loadCart();
         updateCartCount();
@@ -158,7 +158,7 @@ async function loadWishlist() {
     const content = document.getElementById('wishlistContent');
 
     try {
-        const data = await apiFetch('/cart/wishlist');
+        const data = await apiFetch('api/cart/wishlist');
         wishlistItems = data.items;
 
         if (wishlistItems.length === 0) {
@@ -198,11 +198,11 @@ async function loadWishlist() {
         content.querySelectorAll('.wishlist-move-btn').forEach(btn => {
             btn.addEventListener('click', async () => {
                 try {
-                    await apiFetch('/cart', {
+                    await apiFetch('api/cart', {
                         method: 'POST',
                         body: JSON.stringify({ product_id: btn.dataset.productId, quantity: 1 })
                     });
-                    await apiFetch(`/cart/wishlist/${btn.dataset.wishlistId}`, { method: 'DELETE' });
+                    await apiFetch(`api/cart/wishlist/${btn.dataset.wishlistId}`, { method: 'DELETE' });
                     showToast('Moved to cart!', 'success');
                     loadCart();
                     loadWishlist();
@@ -217,7 +217,7 @@ async function loadWishlist() {
         content.querySelectorAll('.wishlist-remove-btn').forEach(btn => {
             btn.addEventListener('click', async () => {
                 try {
-                    await apiFetch(`/cart/wishlist/${btn.dataset.wishlistId}`, { method: 'DELETE' });
+                    await apiFetch(`api/cart/wishlist/${btn.dataset.wishlistId}`, { method: 'DELETE' });
                     showToast('Removed from wishlist');
                     loadWishlist();
                 } catch (err) {
@@ -243,7 +243,7 @@ function setupCoupon() {
         }
 
         try {
-            const data = await apiFetch(`/orders/coupon/${code}`);
+            const data = await apiFetch(`api/orders/coupon/${code}`);
             discountPercent = parseFloat(data.coupon.discount_percent);
             appliedCoupon = data.coupon;
 
