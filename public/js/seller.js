@@ -471,8 +471,8 @@ async function submitProductForm() {
 
         const token = getToken();
         const url = isEditMode
-            ? `http://query-cart.onrender.com/api/seller/products/${editId}`
-            : 'http://query-cart.onrender.com/api/seller/products';
+            ? `https://query-cart.onrender.com/api/seller/products/${editId}`
+            : 'https://query-cart.onrender.com/api/seller/products';
 
         const res = await fetch(url, {
             method: isEditMode ? 'PUT' : 'POST',
