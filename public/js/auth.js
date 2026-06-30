@@ -38,7 +38,7 @@ function setupLoginForm() {
         btn.disabled = true;
 
         try {
-            const data = await apiFetch('/auth/login', {
+            const data = await apiFetch('api/auth/login', {
                 method: 'POST',
                 body: JSON.stringify({ email, password })
             });
@@ -114,7 +114,7 @@ function setupRegisterForm() {
         btn.disabled = true;
 
         try {
-            const data = await apiFetch('/auth/register', {
+            const data = await apiFetch('api/auth/register', {
                 method: 'POST',
                 body: JSON.stringify({ name, email, phone, password, role: selectedRole })
             });
